@@ -130,7 +130,14 @@ namespace LyncKioskTray
             {
                 Thread.Sleep(1000);
 
-                channelStream.BeginStart(ar => { }, channelStream);
+                try
+                {
+                    channelStream.BeginStart(ar => { }, channelStream);
+                }
+                catch (NotSupportedException)
+                {
+                    //This is normal...
+                }
                 count++;
             }
         }
