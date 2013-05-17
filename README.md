@@ -1,5 +1,7 @@
 Lync 2013 Auto Answer
 =============================
+[Download Pre-Compiled Version Here](https://s3.amazonaws.com/ytech-public-downloads/LyncKioskTray.zip)
+
 A simple tray application that turns on Lync 2013 auto-answer and automatically starts video and full-screen mode. Ideal for conference rooms or hands-off remote kiosk units.
 
 ![Tray Icon](readme-content/TrayIcon.png)
