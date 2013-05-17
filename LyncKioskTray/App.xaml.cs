@@ -72,7 +72,8 @@ namespace LyncKioskTray
                 {
                     var answer = new LyncAnswer(client)
                         {
-                            FullScreenOnAnswer = () => LyncKioskTray.Properties.Settings.Default.fullScreen
+                            FullScreenOnAnswer = () => LyncKioskTray.Properties.Settings.Default.fullScreen,
+                            AutoAcceptScreenSharing = () => LyncKioskTray.Properties.Settings.Default.autoAcceptScreenSharing
                         };
                     answer.Start();
                 });

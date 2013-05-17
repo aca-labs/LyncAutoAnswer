@@ -9,7 +9,8 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15">
-            <CheckBox IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=fullScreen, Mode=TwoWay}">Go Full-Screen on Answer</CheckBox>
+            <CheckBox Margin="5" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=fullScreen, Mode=TwoWay}">Go Full-Screen on Answer</CheckBox>
+            <CheckBox Margin="5" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=autoAcceptScreenSharing, Mode=TwoWay}">Auto-Accept Screen Sharing</CheckBox>
         </StackPanel>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontWeight="Bold">
                 <Hyperlink NavigateUri="http://github.com/ytechie/LyncAutoAnswer" RequestNavigate="Hyperlink_OnRequestNavigate">View on GitHub</Hyperlink>

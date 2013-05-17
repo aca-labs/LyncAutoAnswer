@@ -16,6 +16,7 @@ namespace LyncKioskTray
         private readonly LyncClient _lyncClient;
 
         public Func<bool> FullScreenOnAnswer = () => true;
+        public Func<bool> AutoAcceptScreenSharing = () => true;
 
         public LyncAnswer(LyncClient lyncClient)
         {
@@ -37,6 +38,8 @@ namespace LyncKioskTray
                 {
                     AcceptVideoWhenVideoAdded(existingConversation);
                     GoFullScreenWhenVideoAdded(existingConversation);
+                    AcceptScreenSharingWhenAdded(existingConversation);
+
                     Log.DebugFormat("Existing conversation with '{0}' found",
                                     string.Join(",", existingConversation.Participants.Select(x => x.Contact.Uri)));
                 }
@@ -57,12 +60,9 @@ namespace LyncKioskTray
                 var avModalityState = avModality.State;
                 Log.DebugFormat("Conversation Added, AV Modality: {0}", avModalityState);
 
-                //Check if the new conversation is a new incoming video request
-                if (avModalityState == ModalityState.Notified)
-                    AnswerVideo(e.Conversation);
-
                 AcceptVideoWhenVideoAdded(e.Conversation);
                 GoFullScreenWhenVideoAdded(e.Conversation);
+                AcceptScreenSharingWhenAdded(e.Conversation);
             }
             catch (Exception ex)
             {
@@ -73,6 +73,10 @@ namespace LyncKioskTray
         private static void AcceptVideoWhenVideoAdded(Conversation conversation)
         {
             var avModality = (AVModality)conversation.Modalities[ModalityTypes.AudioVideo];
+
+            //Check if the new conversation is a new incoming video request
+            if (avModality.State == ModalityState.Notified)
+                AnswerVideo(conversation);
 
             avModality.ModalityStateChanged += (o, args) =>
             {
@@ -118,6 +122,22 @@ namespace LyncKioskTray
                     Log.Error("Error handling modality state change", ex);
                 }
             };
+        }
+
+        private void AcceptScreenSharingWhenAdded(Conversation conversation)
+        {
+            var modality = (Microsoft.Lync.Model.Conversation.Sharing.ApplicationSharingModality)conversation.Modalities[ModalityTypes.ApplicationSharing];
+
+            if (modality.State == ModalityState.Notified && AutoAcceptScreenSharing())
+                modality.Accept();
+
+            modality.ModalityStateChanged += (sender, args) =>
+                {
+                    if (args.NewState == ModalityState.Notified && AutoAcceptScreenSharing())
+                    {
+                        modality.Accept();
+                    }
+                };
         }
 
         private static void StartOurVideo(AVModality avModality)

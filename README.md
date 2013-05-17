@@ -13,6 +13,7 @@ Features:
 * Switches to full-screen mode after answering the call
 * Continues to work even after a Lync restart
 * Answers video for existing conversations (IM/Audio/etc)
+* Option to auto-accept screen sharing
 * Windowless tray application
 * Extensive logging
 

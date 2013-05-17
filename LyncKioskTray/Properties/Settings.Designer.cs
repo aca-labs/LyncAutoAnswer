@@ -46,5 +46,17 @@ namespace LyncKioskTray.Properties {
                 this["fullScreen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool autoAcceptScreenSharing {
+            get {
+                return ((bool)(this["autoAcceptScreenSharing"]));
+            }
+            set {
+                this["autoAcceptScreenSharing"] = value;
+            }
+        }
     }
 }
