@@ -16,6 +16,10 @@ Features:
 
 [Click here for the Trello board for this project](https://trello.com/board/lync-auto-answer/5194e27988957bcc70002c23)
 
-Pro-tip: Disable video cropping (square video) for conference rooms so that you get a wide-screen view. To do this, add a registry key called "CropOutgoingVideo" to "HKCU\Software\Microsoft\Office\15.0\Lync", and set it the value to 0 for conference rooms. Make sure that you have the latest Lync 2013 updates to ensure this setting will apply.
+Pro-tip: Disable video cropping (square video) for conference rooms so that you get a wide-screen view. This was added [http://support.microsoft.com/kb/2814254](in an update after release).
+
+Build Pre-Requisites
+* Visual Studio 2012
+* [Lync 2013 SDK](http://www.microsoft.com/en-us/download/details.aspx?id=36824)
 
 [Fork by Jason Young](http://www.ytechie.com)
