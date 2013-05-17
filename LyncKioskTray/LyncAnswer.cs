@@ -15,6 +15,7 @@ namespace LyncKioskTray
 
         private readonly LyncClient _lyncClient;
 
+        public Func<bool> AutoAnswer = () => true;
         public Func<bool> FullScreenOnAnswer = () => true;
         public Func<bool> AutoAcceptScreenSharing = () => true;
 
@@ -70,12 +71,12 @@ namespace LyncKioskTray
             }
         }
 
-        private static void AcceptVideoWhenVideoAdded(Conversation conversation)
+        private void AcceptVideoWhenVideoAdded(Conversation conversation)
         {
             var avModality = (AVModality)conversation.Modalities[ModalityTypes.AudioVideo];
 
             //Check if the new conversation is a new incoming video request
-            if (avModality.State == ModalityState.Notified)
+            if (avModality.State == ModalityState.Notified && AutoAnswer())
                 AnswerVideo(conversation);
 
             avModality.ModalityStateChanged += (o, args) =>
@@ -85,9 +86,9 @@ namespace LyncKioskTray
                     var newState = args.NewState;
                     Log.DebugFormat("Conversation Modality State Changed to '{0}'", newState);
 
-                    if (newState == ModalityState.Notified)
+                    if (newState == ModalityState.Notified && AutoAnswer())
                         AnswerVideo(conversation);
-                    if (newState == ModalityState.Connected)
+                    if (newState == ModalityState.Connected && AutoAnswer())
                         StartOurVideo(avModality);
                 }
                 catch (Exception ex)

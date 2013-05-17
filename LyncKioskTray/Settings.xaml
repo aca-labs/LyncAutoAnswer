@@ -9,6 +9,7 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15">
+            <CheckBox Margin="5" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=autoAnswer, Mode=TwoWay}">Auto-Answer</CheckBox>
             <CheckBox Margin="5" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=fullScreen, Mode=TwoWay}">Go Full-Screen on Answer</CheckBox>
             <CheckBox Margin="5" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=autoAcceptScreenSharing, Mode=TwoWay}">Auto-Accept Screen Sharing</CheckBox>
         </StackPanel>
