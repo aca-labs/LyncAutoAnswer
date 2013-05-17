@@ -6,4 +6,11 @@ A simple tray application that turns on Lync 2013 auto-answer and automatically 
 
 This is a fork of [Scott Hanselmans auto-answer](https://github.com/shanselman/LyncAutoAnswer), which has quite a few unhandled edge cases that are corrected in this version.
 
-- [Jason Young](http://www.ytechie.com)
+Features:
+* Auto-answers video calls
+* Switches to full-screen mode after answering the call
+* Continues to work even after a Lync restart
+* Answers video for existing conversations (IM/Audio/etc)
+* Widowless tray application
+
+[by Jason Young](http://www.ytechie.com)
