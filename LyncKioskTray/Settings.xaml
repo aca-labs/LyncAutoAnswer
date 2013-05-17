@@ -1,13 +1,18 @@
 ﻿<Window x:Class="LyncKioskTray.Settings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Settings" Height="300" Width="300">
+        xmlns:properties="clr-namespace:LyncKioskTray.Properties"
+        Title="Lync Auto Answer Settings" Height="300" Width="300">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock>Lync Auto Answer</TextBlock>
-            <TextBlock>
-                <Hyperlink NavigateUri="http://github.com/ytechie/LyncAutoAnswer" RequestNavigate="Hyperlink_OnRequestNavigate">View on GitHub</Hyperlink>
-            </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15">
+            <CheckBox IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=fullScreen, Mode=TwoWay}">Go Full-Screen on Answer</CheckBox>
         </StackPanel>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontWeight="Bold">
+                <Hyperlink NavigateUri="http://github.com/ytechie/LyncAutoAnswer" RequestNavigate="Hyperlink_OnRequestNavigate">View on GitHub</Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

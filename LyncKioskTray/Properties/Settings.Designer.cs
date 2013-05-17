@@ -34,5 +34,17 @@ namespace LyncKioskTray.Properties {
                 this["autoAnswer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool fullScreen {
+            get {
+                return ((bool)(this["fullScreen"]));
+            }
+            set {
+                this["fullScreen"] = value;
+            }
+        }
     }
 }

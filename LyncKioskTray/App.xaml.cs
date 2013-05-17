@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -80,7 +81,10 @@ namespace LyncKioskTray
             
             _lyncWatcher.Start(client =>
                 {
-                    var answer = new LyncAnswer(client);
+                    var answer = new LyncAnswer(client)
+                        {
+                            FullScreenOnAnswer = () => LyncKioskTray.Properties.Settings.Default.fullScreen
+                        };
                     answer.Start();
                 });
         }

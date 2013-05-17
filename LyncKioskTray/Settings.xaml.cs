@@ -17,6 +17,9 @@ namespace LyncKioskTray
                 {
                     args.Cancel = true;
                     Visibility = Visibility.Hidden;
+
+                    //Persist the settings to disk
+                    Properties.Settings.Default.Save();
                 };
         }
 

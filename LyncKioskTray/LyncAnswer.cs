@@ -15,6 +15,8 @@ namespace LyncKioskTray
 
         private readonly LyncClient _lyncClient;
 
+        public Func<bool> FullScreenOnAnswer = () => true;
+
         public LyncAnswer(LyncClient lyncClient)
         {
             _lyncClient = lyncClient;
@@ -45,7 +47,7 @@ namespace LyncKioskTray
             }
         }
 
-        private static void ConversationAdded(object sender, ConversationManagerEventArgs e)
+        private void ConversationAdded(object sender, ConversationManagerEventArgs e)
         {
             try
             {
@@ -91,7 +93,7 @@ namespace LyncKioskTray
             };
         }
 
-        private static void GoFullScreenWhenVideoAdded(Conversation conversation)
+        private void GoFullScreenWhenVideoAdded(Conversation conversation)
         {
             var avModality = (AVModality)conversation.Modalities[ModalityTypes.AudioVideo];
 
@@ -106,7 +108,9 @@ namespace LyncKioskTray
                         var lync = LyncClient.GetAutomation();
                         var win = lync.GetConversationWindow(conversation);
                         //win.MoveAndResize(0, 0, (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
-                        win.ShowFullScreen(0);
+
+                        if(FullScreenOnAnswer())
+                            win.ShowFullScreen(0);
                     }
                 }
                 catch (Exception ex)
