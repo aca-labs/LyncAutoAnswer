@@ -16,7 +16,8 @@ Features:
 
 [Click here for the Trello board for this project](https://trello.com/board/lync-auto-answer/5194e27988957bcc70002c23)
 
-Pro-tip: Disable video cropping (square video) for conference rooms so that you get a wide-screen view. This was added [http://support.microsoft.com/kb/2814254](in an update after release).
+Pro-tip: Disable video cropping (square video) for conference rooms so that you get a wide-screen view. This was added [http://support.microsoft.com/kb/2814254](in an update after release):
+![Enable Widescreen](readme-content\WidescreenScreenshot.png)
 
 Build Pre-Requisites
 * Visual Studio 2012
