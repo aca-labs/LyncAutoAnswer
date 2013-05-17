@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 
 namespace LyncKioskTray
 {
@@ -10,6 +11,13 @@ namespace LyncKioskTray
         public Settings()
         {
             InitializeComponent();
+
+            //Hide the window, don't destroy it. This will let us show it again later.
+            Closing += (sender, args) =>
+                {
+                    args.Cancel = true;
+                    Visibility = Visibility.Hidden;
+                };
         }
 
         private void Hyperlink_OnRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

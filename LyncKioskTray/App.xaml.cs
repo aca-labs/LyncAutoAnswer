@@ -15,6 +15,7 @@ namespace LyncKioskTray
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(
                 MethodBase.GetCurrentMethod().DeclaringType);
 
+        private Settings _settingWindow;
         private LyncWatcher _lyncWatcher;
         private NotifyIcon _trayIcon;
 
@@ -57,8 +58,10 @@ namespace LyncKioskTray
 
             _trayIcon.Click += (sender, args) =>
                 {
-                    var s = new Settings();
-                    s.Show();
+                    if(_settingWindow == null)
+                        _settingWindow = new Settings();
+                    _settingWindow.Show();
+                    _settingWindow.Activate();
                 };
 
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
