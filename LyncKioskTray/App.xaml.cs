@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Diagnostics;
@@ -16,9 +14,8 @@ namespace LyncKioskTray
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(
                 MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Settings _settingWindow;
         private LyncWatcher _lyncWatcher;
-        private NotifyIcon _trayIcon;
+        private Tray _tray;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,7 +31,7 @@ namespace LyncKioskTray
         {
             base.OnExit(e);
 
-            _trayIcon.Visible = false;
+            _tray.TrayControl.Visible = false;
         }
 
         private static void AllowOneInstance()
@@ -50,22 +47,14 @@ namespace LyncKioskTray
 
         private void StartTray()
         {
-            //this.WindowState = WindowState.;
-            _trayIcon = new NotifyIcon();
-            var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(GetType(), "TrayIcon.ico");
-            Debug.Assert(iconStream != null, "iconStream != null");
-            _trayIcon.Icon = new Icon(iconStream);
-            _trayIcon.Visible = true;
+            _tray = new Tray(new NotifyIcon());
+            _tray.Show();
 
-            _trayIcon.Click += (sender, args) =>
+            _tray.Shutdown += (sender, args) =>
                 {
-                    if(_settingWindow == null)
-                        _settingWindow = new Settings();
-                    _settingWindow.Show();
-                    _settingWindow.Activate();
+                    _lyncWatcher.Dispose();
+                    Current.Shutdown();
                 };
-
-            ShutdownMode = ShutdownMode.OnExplicitShutdown;
         }
 
         public void InitLogging()

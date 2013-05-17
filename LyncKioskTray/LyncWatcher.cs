@@ -11,13 +11,14 @@ namespace LyncKioskTray
     ///     The Lync client may not be running when the app starts, or it may be restarted.
     ///     This class starts the Lync logic if necessary, and restarts it if the app restarts.
     /// </summary>
-    public class LyncWatcher
+    public class LyncWatcher : IDisposable
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(
                     MethodBase.GetCurrentMethod().DeclaringType);
 
         private Action<LyncClient> _lyncStarted = client => { };
         private readonly Control _invokerControl = new Control();
+        private ManagementEventWatcher _managementEventWatcher;
 
         public LyncWatcher()
         {
@@ -28,7 +29,7 @@ namespace LyncKioskTray
         {
             _lyncStarted = lyncStarted;
 
-            WatchForProcessStart("lync.exe", LyncProcessStarted);
+            WatchForProcessStart();
 
             var client = TryToGetLyncClient();
             if (client == null)
@@ -38,29 +39,30 @@ namespace LyncKioskTray
             
         }
 
-        private void WatchForProcessStart(string processName, Action a)
+        private void WatchForProcessStart()
         {
-            string queryString =
-                "SELECT TargetInstance" +
-                "  FROM __InstanceCreationEvent " +
-                "WITHIN  10 " +
-                " WHERE TargetInstance ISA 'Win32_Process' " +
-                "   AND TargetInstance.Name = '" + processName + "'";
+            const string queryString = "SELECT TargetInstance" +
+                                       "  FROM __InstanceCreationEvent " +
+                                       "WITHIN  10 " +
+                                       " WHERE TargetInstance ISA 'Win32_Process' " +
+                                       "   AND TargetInstance.Name = 'lync.exe'";
 
             // The dot in the scope means use the current machine
             const string scope = @"\\.\root\CIMV2";
 
             // Create a watcher and listen for events
-            var watcher = new ManagementEventWatcher(scope, queryString);
-            watcher.EventArrived += (sender, args) =>
-                {
-                    //Give Lync some time to start
-                    //I tried getting fancy with checking the Lync state, but we end up getting into
-                    //threading hell. It was just easier to give Lync some time after the process starts.
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    _invokerControl.Invoke(a);
-                };
-            watcher.Start();
+            _managementEventWatcher = new ManagementEventWatcher(scope, queryString);
+            _managementEventWatcher.EventArrived += WatcherEventArrived;
+            _managementEventWatcher.Start();
+        }
+
+        private void WatcherEventArrived(object sender, EventArrivedEventArgs e)
+        {
+            //Give Lync some time to start
+            //I tried getting fancy with checking the Lync state, but we end up getting into
+            //threading hell. It was just easier to give Lync some time after the process starts.
+            Thread.Sleep(TimeSpan.FromSeconds(5));
+            _invokerControl.Invoke(new Action(LyncProcessStarted));
         }
 
         private static LyncClient TryToGetLyncClient()
@@ -86,6 +88,19 @@ namespace LyncKioskTray
             {
                 _lyncStarted(lyncClient);
             }
+        }
+
+        public void Dispose()
+        {
+            //Without calling this method, we end up crashing on shutdown due to
+            //event handlers in runtime callable wrappers.
+
+            if (_managementEventWatcher == null)
+                return;
+
+            _managementEventWatcher.Stop();
+            _managementEventWatcher.EventArrived -= WatcherEventArrived;
+            _managementEventWatcher.Dispose();
         }
     }
 }
