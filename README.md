@@ -1,4 +1,4 @@
-Lync Super Simple Auto Answer for Lync 2013
+Lync 2013 Auto Answer
 =============================
 A simple tray application that turns on Lync 2013 auto-answer and automatically starts video and full-screen mode. Ideal for conference rooms or hands-off remote kiosk units.
 
