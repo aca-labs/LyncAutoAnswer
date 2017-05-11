@@ -8,8 +8,8 @@
     <ProjectGuid>{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LyncKioskTray</RootNamespace>
-    <AssemblyName>LyncKioskTray</AssemblyName>
+    <RootNamespace>LyncRoomClient</RootNamespace>
+    <AssemblyName>LyncRoomClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -43,6 +43,7 @@
     <WarningLevel>4</WarningLevel>
     <!-- TODO$$(todo_bug): Ocom.Net requires that we target x86 for WPF apps-->
     <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

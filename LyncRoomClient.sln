@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LyncClient", "LyncKioskTray\LyncClient.csproj", "{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LyncRoomClient", "LyncRoomClient\LyncRoomClient.csproj", "{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A19CAC8-5D24-44FA-9F50-D0BDC66FF580}"
 	ProjectSection(SolutionItems) = preProject
