@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
-namespace LyncKioskTray
+namespace LyncRoomClient
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

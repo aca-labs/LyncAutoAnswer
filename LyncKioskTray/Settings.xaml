@@ -1,7 +1,7 @@
-﻿<Window x:Class="LyncKioskTray.Settings"
+﻿<Window x:Class="LyncRoomClient.Settings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:properties="clr-namespace:LyncKioskTray.Properties"
+        xmlns:properties="clr-namespace:LyncRoomClient.Properties"
         Title="Lync Auto Answer Settings" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>

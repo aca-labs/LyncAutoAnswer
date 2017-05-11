@@ -4,7 +4,7 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace LyncKioskTray
+namespace LyncRoomClient
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -72,9 +72,9 @@ namespace LyncKioskTray
                 {
                     var answer = new LyncAnswer(client)
                         {
-                            AutoAnswer = () => LyncKioskTray.Properties.Settings.Default.autoAnswer,
-                            FullScreenOnAnswer = () => LyncKioskTray.Properties.Settings.Default.fullScreen,
-                            AutoAcceptScreenSharing = () => LyncKioskTray.Properties.Settings.Default.autoAcceptScreenSharing
+                            AutoAnswer = () => LyncRoomClient.Properties.Settings.Default.autoAnswer,
+                            FullScreenOnAnswer = () => LyncRoomClient.Properties.Settings.Default.fullScreen,
+                            AutoAcceptScreenSharing = () => LyncRoomClient.Properties.Settings.Default.autoAcceptScreenSharing
                         };
                     answer.Start();
                 });

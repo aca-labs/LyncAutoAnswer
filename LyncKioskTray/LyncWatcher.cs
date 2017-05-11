@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Lync.Model;
 
-namespace LyncKioskTray
+namespace LyncRoomClient
 {
     /// <summary>
     ///     The Lync client may not be running when the app starts, or it may be restarted.
