@@ -92,15 +92,23 @@ namespace LyncRoomClient
 
         public void Dispose()
         {
-            //Without calling this method, we end up crashing on shutdown due to
-            //event handlers in runtime callable wrappers.
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            if (_managementEventWatcher == null)
-                return;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_managementEventWatcher != null)
+                {
+                    _managementEventWatcher.Stop();
+                    _managementEventWatcher.EventArrived -= WatcherEventArrived;
+                    _managementEventWatcher.Dispose();
+                }
 
-            _managementEventWatcher.Stop();
-            _managementEventWatcher.EventArrived -= WatcherEventArrived;
-            _managementEventWatcher.Dispose();
+                _invokerControl.Dispose();
+            }
         }
     }
 }
